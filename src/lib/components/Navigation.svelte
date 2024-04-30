@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getDrawerStore } from '@skeletonlabs/skeleton';
+	import { Avatar, getDrawerStore } from '@skeletonlabs/skeleton';
 	import DrawerButton from './DrawerButton.svelte';
 	import { browser } from '$app/environment';
 	import SizedBox from './SizedBox.svelte';
@@ -30,14 +30,15 @@
 </script>
 
 <nav class="list-nav p-4 bg-primary-700 h-full">
+	<div class="flex flex-col w-full items-center mb-24 mt-10">
+		<Avatar
+			 />
+	</div>
 	<ul>
 		<li>
-			<SizedBox height="h-24" /> 
-		</li>
-		<li>
 			<DrawerButton
-				name="Schedules"
-				link="/"
+				name="Dashboard"
+				link="/u"
 				image="/icon{selectedItemIndex === 0 ? '/dark' : ''}/menu.svg"
 				onClick={() => drawerClose(0)}
 				isActive={selectedItemIndex === 0}
@@ -45,27 +46,47 @@
 		</li>
 		<li>
 			<DrawerButton
-				name="Users"
-				link="/users"
-				image="/icon{selectedItemIndex === 1 ? '/dark' : ''}/user.svg"
+				name="Transaction Books"
+				link="/u/pay"
+				image="/icon{selectedItemIndex === 1 ? '/dark' : ''}/report.svg"
 				onClick={() => drawerClose(1)}
 				isActive={selectedItemIndex === 1}
 			/>
 		</li>
 		<li>
 			<DrawerButton
-				name="Colleges"
-				link="/colleges"
-				image="/icon{selectedItemIndex === 2 ? '/dark' : ''}/school.svg"
+				name="Customers"
+				link="/u/customers"
+				image="/icon{selectedItemIndex === 2 ? '/dark' : ''}/customer.svg"
 				onClick={() => drawerClose(2)}
 				isActive={selectedItemIndex === 2}
 			/>
 		</li>
 		<li>
 			<DrawerButton
-				name="Department"
-				link="/departments"
-				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/report.svg"
+				name="Employees"
+				link="/u/employees"
+				image="/icon{selectedItemIndex === 2 ? '/dark' : ''}/employee.svg"
+				onClick={() => drawerClose(2)}
+				isActive={selectedItemIndex === 2}
+			/>
+		</li>
+		<br />
+		<br />
+		<li>
+			<DrawerButton
+				name="Settings"
+				link="/u/settings"
+				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/settings.svg"
+				onClick={() => drawerClose(3)}
+				isActive={selectedItemIndex === 3}
+			/>
+		</li>
+		<li>
+			<DrawerButton
+				name="Log out"
+				link="/u/logout"
+				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/logout.svg"
 				onClick={() => drawerClose(3)}
 				isActive={selectedItemIndex === 3}
 			/>
