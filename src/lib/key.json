@@ -1,0 +1,14 @@
+{
+	"type": "service_account",
+	"project_id": "bolus-stock-assistant",
+	"private_key_id": "c6ed5c67c0e04e47516370ca612d1e364f34b2a7",
+	"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCv46nw22xX204/\n0o2oJKlqO8E/fEDMhyLHhpNXnQTBq/7cGdZBRjGf2ds10u2tW3Ivcadk6MYf8DjZ\n2cmqE153eGE4IrlXx8Dlpz0Io7faXKJCu+o+sMcVdlGk9sBeiY5+xDqScNYfYsPf\ndVttfVzaY1nbGU44qn2KITYFXACQKhE1CVptlhCrOMiuBpVkrfw+/+Y3CCVCZxOl\n+RiJ6LdK7u68vZpO++92IwIMxgLyNKlDzGea6RvyigwUgug0RyRyCuWDw3Oo3tcU\nCnS9/EKt7lFyA+IFqeJasWgpgv70Y7qILT2TTjQmifRiJvKjQWTxmDOi1HNZZRxH\nBaY7rVHlAgMBAAECggEAFT6+jCU01PfcX8Ei8yhafkZxdSWg/hNklA0hRvfkVzBb\nPGKyinfcDp7V545uvv3IsQpdWcb0B2+Qrl+sCCsGwg98TreDA6NRHWwx5xU/Y9TE\nlKL2DFR195WvDunvGnwrBgzVtlKCyo+3cQpP3M3DpW1SsTBBTn7pYwHX8JXIS6FV\n3beubOo1GWSlzgAd6Jf6rpZ3XcaikssNw6+DAH84XZbvRwAqUtQ/rc5Ji0hOieMa\nfjhpAGh0BnSZDBSjk8iSkQ9USemLu9oBhtWTLr23JHzOMM5DcCpdN7g8mZifrYFy\nzwZi1CoNDwMjx/wKlITFrA5HGovakqrfAbibgXE0gQKBgQDcn8T4/hUznK8f/crL\nv/LrI9w5jkr4t4Urpzo8o78gmOKGxsRqkdtqA5eN/AK8DDYy0CjEtinbvKu0SRsd\nyi/goUDRZeYN3l18Gy07yCIDKe3yIl79XQentrHy+C5DIl7VtL8FRDbc8sQeTWuo\nCFX9K7AZaAXZ8D4EiMVQ0qKrnQKBgQDMF5w10pJDAQcpkq1/HDJbysVPIBJo6Bjd\njs8zWFBeROSJJLCS3Bb/PInsDyaQsOdstQAnEjvwLEafLanGQuP2iTFkaHH6HqlI\nUT6xgxUsr/wlb5S3LOivQR8Cx91Ld/MIQTeSIWY1qf/1BqMl2WuobOjn4fi73izc\nFwDojcGg6QKBgQC0TtsTR8yaDs7NTYTE+k4UwI0GePVqycnLgHNHBeh5Qpm33pC+\nLBBvVxowjyrI9w4Af0Eia2JQVKTbxfekZA62/fLUb/wRj49Fk4xnVEv/2++8uTx6\nwuIzvks2sIBWm6t36q1HJ5XTA5Em1s1KWe206FSWnv5RPFfjKshgIpWRvQKBgG2L\n6rv1B67RWW/WHCwTDXC5uQiMlXUbx2T853iO2ayP2/9E40YgvnNHolxDkZaubbmq\nuac/IU775PhBwVP6yXOmFg3oBe2UEZcQjM8pJe9zkqrhZnifsVGIacXLU5vTiW6P\n2u0j4kHBuvJhGqcRObkQpD76ytDEI14LNuCcXicpAoGAHdigge6WNVxJZLnPNxpf\nG36zcIt/9X3Mi94atzGqYs+UEhYbn9J74KRToijf34ATxsaZ1VCvbBjjzKAM/NPH\nKlEKO0A1ELinIVsCosGgjZqDPUUTPH07biWX48jRAERtYYTlyLiFhNf8cE9vaLva\nS7SORgOFWfGd/HuqYr/GCW8=\n-----END PRIVATE KEY-----\n",
+	"client_email": "firebase-adminsdk-gy197@bolus-stock-assistant.iam.gserviceaccount.com",
+	"client_id": "104417703240018657542",
+	"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+	"token_uri": "https://oauth2.googleapis.com/token",
+	"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+	"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-gy197%40bolus-stock-assistant.iam.gserviceaccount.com",
+	"universe_domain": "googleapis.com"
+  }
+  
