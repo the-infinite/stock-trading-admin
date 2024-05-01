@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { usersStore } from '$lib/session';
+	import { selectedUser, usersStore } from '$lib/session';
 	import type { UserModel } from '$lib/types/user';
-	import { sendPost, setToken } from '$lib/util/client';
+	import { setToken, sendGet } from '$lib/util/client';
 	import { isEmail } from '$lib/util/validator';
 	import { ProgressRadial, getToastStore } from '@skeletonlabs/skeleton';
+	import { clientAuth } from '$lib/client';
+	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import { FirebaseError } from 'firebase/app';
 
 	let email: string = '';
 	let password: string = '';
@@ -38,39 +40,52 @@
 		loggingIn = true;
 
 		// Request this information.
-		const response = await sendPost('/api/auth/login', {
-			email: email,
-			password: password
-		});
+		try {
+			// This is fair enough.
+			const authUser = await signInWithEmailAndPassword(clientAuth, email, password);
+			const response = await sendGet(`/api/auth/${authUser.user.uid}`);
 
-		// We are no longer logging in.
-		loggingIn = false;
+			// If this response is fine...
+			if (response.ok) {
+				const user: UserModel = await response.json();
+				const users = $usersStore ?? [];
 
-		// If this response is fine...
-		if (response.ok) {
-			// Retrieve this user.
-			const user: UserModel = await response.json();
-			const token = user.uid;
+				// This is our new token.
+				setToken(user.uid);
 
-			// This is our new token.
-			setToken(token);
+				/// This is now our selected user. Make no mistake.
+				selectedUser.set(users.length);
 
-			/// Now, update our user store.
-			usersStore.update(function (_): UserModel[] | undefined {
-				return [...$usersStore!, user];
-			});
+				/// Now, update our user store.
+				usersStore.update(function (_): UserModel[] | undefined {
+					return [...users, user];
+				});
 
-			// Now route to the user.
-			window.location.assign('/u');
-		}
+				// Now route to the user.
+				window.location.assign('/u');
+			}
 
-		//? If this failed.
-		else {
+			//? If this failed.
+			else {
+				toastStore.trigger({
+					message: await response.text(),
+					background: 'variant-filled-error'
+				});
+			}
+		} catch (e) {
+			var message: string;
+			console.log((e as any).constructor.name);
+			if ((e as any).constructor.name === '_FirebaseError') {
+				message = (e as FirebaseError).message;
+			} else {
+				message = e?.toString() ?? 'An unknown error occurred.';
+			}
 			toastStore.trigger({
-				message: await response.text(),
+				message: message,
 				background: 'variant-filled-error'
 			});
 		}
+		loggingIn = false;
 	}
 </script>
 
@@ -97,18 +112,18 @@
 <!-- For the user's password -->
 <div class="flex flex-col items-start">
 	<div
-		class="border-2 flex flex-row gap-2 items-center pr-2 rounded-lg w-full placeholder-black/45 border-primary-500/80"
+		class="border-2 flex flex-row gap-2 items-center pr-2 rounded-lg w-full border-primary-500/80"
 	>
 		{#if passwordVisible}
 			<input
-				class="border-none outline-none focus:outline-none focus:border-none w-full bg-transparent"
+				class="border-none placeholder-black/45 outline-none focus:outline-none focus:border-none w-full bg-transparent"
 				type="text"
 				bind:value={password}
 				placeholder="Password"
 			/>
 		{:else}
 			<input
-				class="border-none outline-none focus:outline-none focus:border-none w-full bg-transparent"
+				class="border-none outline-none placeholder-black/45 focus:outline-none focus:border-none w-full bg-transparent"
 				type="password"
 				bind:value={password}
 				placeholder="Password"
@@ -137,7 +152,7 @@
 	{#if loggingIn}
 		<ProgressRadial width="w-5" />
 	{:else}
-		<p class="text-left flex">Sign in</p>
+		<p class="text-center w-full">Login</p>
 	{/if}
 </button>
 
@@ -159,6 +174,6 @@
 		class="btn bg-primary-800 text-white w-full text-left flex flex-row justify-start"
 		href="/auth/register"
 	>
-		<p class="text-left flex">Sign up</p>
+		<p class="text-center w-full">Create an account</p>
 	</a>
 </div>

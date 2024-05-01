@@ -33,7 +33,7 @@ export type UserModel = {
   email: string;
   phone: string;
   userType: string;
-  profileImage: string;
+  profileImage: string | undefined;
   wallets: string[];
   dateJoined: number;
 };

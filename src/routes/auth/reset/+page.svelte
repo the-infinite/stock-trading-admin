@@ -4,6 +4,9 @@
 	import { sendPost } from '$lib/util/client';
 	import { isEmail } from '$lib/util/validator';
 	import { ProgressRadial, getToastStore } from '@skeletonlabs/skeleton';
+	import { clientAuth } from '$lib/client';
+	import { sendPasswordResetEmail } from 'firebase/auth';
+	import { FirebaseError } from 'firebase/app';
 
 	let email: string = '';
 	let emailInvalid: boolean = false;
@@ -25,38 +28,31 @@
 
 		sendingOTP = true;
 
-		// Request this information.
-		const response = await sendPost('/api/auth/reset', {
-			email: email
-		});
-
-		// We are no longer logging in.
-		sendingOTP = false;
-
 		// If this response is fine...
-		if (response.ok) {
-			// This is the email to use right now.
-			AuthController.setEmail(email);
-			
+		try {
+			// Request this information.
+			await sendPasswordResetEmail(clientAuth, email);
+
 			// Retrieve this user.
 			toastStore.trigger({
-				message: await response.text(),
+				message: 'A password reset link has been sent to your email address.',
 				background: 'variant-filled-success'
 			});
-
-			// Now, move to the waiting screen.
-			setTimeout(function () {
-				goto('/auth/reset/waiting');
-			}, 2000);
-		}
-
-		//? If this failed.
-		else {
+		} catch (e) {
+			var message: string;
+			console.log((e as any).constructor.name);
+			if ((e as any).constructor.name === '_FirebaseError') {
+				message = (e as FirebaseError).message;
+			} else {
+				message = e?.toString() ?? 'An unknown error occurred.';
+			}
 			toastStore.trigger({
-				message: await response.text(),
+				message: message,
 				background: 'variant-filled-error'
 			});
 		}
+
+		sendingOTP = false;
 	}
 </script>
 

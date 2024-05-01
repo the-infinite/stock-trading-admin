@@ -1,10 +1,9 @@
 <script lang="ts">
 	// Floating UI for Popups
-	import { AppShell, AppBar, Drawer, Modal, Toast, getDrawerStore } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
 
 	// For other things.
 	import { browser } from '$app/environment';
-	import MediaQuery from '$lib/components/MediaQuery.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import SizedBox from '$lib/components/SizedBox.svelte';
 	import { usersStore, selectedUser } from '$lib/session';
@@ -25,18 +24,6 @@
 		drawerStore.open();
 	}
 </script>
-
-<Modal />
-
-<!-- For mobile and tablet screens -->
-<MediaQuery query="(max-width: 1024px)" let:matches>
-	{#if matches}
-		<Toast position="b" />
-	{:else}
-		<!-- For desktop screens -->
-		<Toast position="tr" />
-	{/if}
-</MediaQuery>
 
 <Drawer
 	bgBackdrop="bg-transparent"

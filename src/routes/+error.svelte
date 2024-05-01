@@ -1,6 +1,11 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
-	console.log(page);
+
+	// Log this to the console.
+	if (!browser) {
+		console.log('Error: ' + $page.error?.message);
+	}
 </script>
 
 <div class="bg-white w-screen min-h-screen flex flex-col justify-center items-center">

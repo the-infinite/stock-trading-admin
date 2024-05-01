@@ -1,10 +1,14 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
+
+	// Log this to the console.
+	if (!browser) {
+		console.log('Error: ' + $page.error?.message);
+	}
 </script>
 
-<div
-	class="bg-transparent w-full  h-96 flex flex-col justify-center items-center"
->
+<div class="bg-transparent w-full h-96 flex flex-col justify-center items-center">
 	{#if $page.status === 404}
 		<i class="fas fa-circle-question text-primary-700 text-8xl mb-5"></i>
 		<h1 class="text-primary-700 lg:text-3xl text-xl font-bold">

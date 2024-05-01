@@ -1,8 +1,9 @@
 // place files you want to import through the `$lib` alias in this folder.
 // Import the functions you need from the SDKs you need
-import  admin from "firebase-admin";
+import admin from "firebase-admin";
 import serviceAccount from "$lib/key.json";
 import { Constants } from "./constants";
+import { EmailAuthProvider } from "firebase/auth";
 
 try {
   // Initialze the admin app
@@ -10,7 +11,7 @@ try {
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://cul-student-helper-app-default-rtdb.europe-west1.firebasedatabase.app"
   });
-} catch(e) {}
+} catch (e) { }
 
 /**
  * An object that represents this firebase application.
@@ -30,7 +31,6 @@ export const storage = admin.storage()
  */
 export const database = admin.firestore();
 
-
 /**
  * The collection of all users in our database.
  */
@@ -39,14 +39,9 @@ export const usersCollection = database.collection(Constants.userReference)
 /**
  * The collection of all schedules in our database.
  */
-export const schedulesCollection = database.collection(Constants.scheduleReference);
+export const walletsCollection = database.collection(Constants.walletReference);
 
 /**
  * The collection of all schedules in our database.
  */
-export const collefgesCollection = database.collection(Constants.collegesReference);
-
-/**
- * The collection of all schedules in our database.
- */
-export const departmentCollection = database.collection(Constants.departmentReference);
+export const transactionsCollection = database.collection(Constants.transactionReference);
