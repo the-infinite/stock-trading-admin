@@ -1,28 +1,59 @@
-import { DocumentReference } from "firebase-admin/firestore";
+
+export enum UserType {
+  /**
+   * A regular customer who does nothing but engage in commerce on thi splatform.
+   */
+  customer = "customer",
+
+  /**
+   * An employee so a person who can create trades on this platform legally.
+   */
+  employee = "employee",
+
+  /**
+   * An employee who can ONLY trade stocks.
+   */
+  trader = "trader",
+
+  /**
+   * An employee who consults for others.
+   */
+  consultant = "master",
+
+  /**
+   * A stock trading employee that is considered an expert.
+   */
+  expert = "expert",
+}
 
 export type UserModel = {
   uid: string;
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  college: DocumentReference;
-  department: DocumentReference;
-  studentId: String;
-  level: number;
+  phone: string;
+  userType: string;
+  profileImage: string;
+  wallets: string[];
+  dateJoined: number;
 };
 
-export type UnitDTO = {
-  code: string;
-  isDepartment: boolean;
-  name: string;
-  path: string;
-};
+export function getUserType(userType: string | undefined): string {
+  if (userType === UserType.customer) {
+    return "Customer";
+  }
 
-export type UserDTO = {
-  uid: string;
-  name: string;
-  email: string;
-  college: UnitDTO;
-  department: UnitDTO;
-  studentID: String;
-  level: number;
-};
+  if (userType === UserType.employee) {
+    return "Employee";
+  }
+
+  if (userType === UserType.trader) {
+    return "Stock Trader";
+  }
+
+  if (userType === UserType.consultant) {
+    return "Stocks Consultant";
+  }
+
+  return "Stock Expert";
+}

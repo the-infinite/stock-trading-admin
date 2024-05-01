@@ -2,20 +2,27 @@
 	import { Avatar, getDrawerStore } from '@skeletonlabs/skeleton';
 	import DrawerButton from './DrawerButton.svelte';
 	import { browser } from '$app/environment';
-	import SizedBox from './SizedBox.svelte';
+	import { usersStore, selectedUser } from '$lib/session';
+	import UserSelection from './UserSelection.svelte';
+	import type { UserModel } from '$lib/types/user';
 
 	// Get the drawer
 	const drawerStore = getDrawerStore();
 	let selectedItemIndex: number;
+	const user = $usersStore ? $usersStore![$selectedUser] : undefined;
 
 	//? If we are running in the browser...
 	if (browser) {
-		if (window.location.pathname.startsWith('/users')) {
+		if (window.location.pathname.startsWith('/u/pay')) {
 			selectedItemIndex = 1;
-		} else if (window.location.pathname.startsWith('/colleges')) {
+		} else if (window.location.pathname.startsWith('/u/customers')) {
 			selectedItemIndex = 2;
-		} else if (window.location.pathname.startsWith('/departments')) {
+		} else if (window.location.pathname.startsWith('/u/employees')) {
 			selectedItemIndex = 3;
+		} else if (window.location.pathname.startsWith('/u/settings')) {
+			selectedItemIndex = 4;
+		} else if (window.location.pathname.startsWith('/u/logout')) {
+			selectedItemIndex = 5;
 		} else {
 			selectedItemIndex = 0;
 		}
@@ -27,12 +34,31 @@
 		selectedItemIndex = index;
 		drawerStore.close();
 	}
+
+	function addAccount() {
+
+	}
+
+	function switchAccount(newUser: UserModel, index: number) {
+
+	}
 </script>
 
 <nav class="list-nav p-4 bg-primary-700 h-full">
-	<div class="flex flex-col w-full items-center mb-24 mt-10">
+	<div class="flex flex-col w-full items-center mb-5 mt-10">
 		<Avatar
-			 />
+			initials="{user?.firstname[0]}{user?.lastname[0]}"
+			src={user?.profileImage}
+			fill="fill-gray-900"
+			background="bg-gray-300"
+			width="w-32"
+		/>
+
+		<UserSelection 
+			users={$usersStore ?? []}
+			activeUser={user}
+			onAddAccount={addAccount}
+			onSelectUser={switchAccount}/>
 	</div>
 	<ul>
 		<li>
@@ -66,9 +92,9 @@
 			<DrawerButton
 				name="Employees"
 				link="/u/employees"
-				image="/icon{selectedItemIndex === 2 ? '/dark' : ''}/employee.svg"
-				onClick={() => drawerClose(2)}
-				isActive={selectedItemIndex === 2}
+				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/employee.svg"
+				onClick={() => drawerClose(3)}
+				isActive={selectedItemIndex === 3}
 			/>
 		</li>
 		<br />
@@ -77,18 +103,18 @@
 			<DrawerButton
 				name="Settings"
 				link="/u/settings"
-				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/settings.svg"
-				onClick={() => drawerClose(3)}
-				isActive={selectedItemIndex === 3}
+				image="/icon{selectedItemIndex === 4 ? '/dark' : ''}/settings.svg"
+				onClick={() => drawerClose(4)}
+				isActive={selectedItemIndex === 4}
 			/>
 		</li>
 		<li>
 			<DrawerButton
 				name="Log out"
 				link="/u/logout"
-				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/logout.svg"
-				onClick={() => drawerClose(3)}
-				isActive={selectedItemIndex === 3}
+				image="/icon{selectedItemIndex === 5 ? '/dark' : ''}/logout.svg"
+				onClick={() => drawerClose(5)}
+				isActive={selectedItemIndex === 5}
 			/>
 		</li>
 	</ul>
