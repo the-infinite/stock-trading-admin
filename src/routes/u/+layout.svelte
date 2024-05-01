@@ -3,6 +3,7 @@
 	import { AppShell, AppBar, Drawer, Modal, Toast, getDrawerStore } from '@skeletonlabs/skeleton';
 
 	// For other things.
+	import { browser } from '$app/environment';
 	import MediaQuery from '$lib/components/MediaQuery.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import SizedBox from '$lib/components/SizedBox.svelte';
@@ -11,6 +12,11 @@
 	// Fetch the drawer store
 	const drawerStore = getDrawerStore();
 	const user = $usersStore ? $usersStore[$selectedUser] : undefined;
+
+	// Redirect to the login screen when there is no logged in user dweeb.
+	if (browser && !user) {
+		window.location.assign('/auth/login');
+	}
 
 	/**
 	 * The drawer store.
