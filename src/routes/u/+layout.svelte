@@ -5,7 +5,6 @@
 	// For other things.
 	import { browser } from '$app/environment';
 	import Navigation from '$lib/components/Navigation.svelte';
-	import SizedBox from '$lib/components/SizedBox.svelte';
 	import { usersStore, selectedUser } from '$lib/session';
 
 	// Fetch the drawer store
@@ -60,15 +59,19 @@
 	</svelte:fragment>
 
 	<!-- Router Slot -->
-	<div class="p-10 bg-surface-300 overflow-y-scroll pb-32 h-fit min-h-screen">
+	<div class="bg-surface-300 overflow-y-scroll h-fit min-h-screen">
 		<!-- If this is not the settings page -->
-		<h2 class="text-black text-3xl font-bold">Welcome, {user?.firstname} 👋</h2>
-		<h3 class="text-gray-700 text-lg">Here's what happened since you left</h3>
+		<h2 class="px-7 pt-7 text-black text-2xl xl:text-3xl font-bold">
+			Welcome, {user?.firstname} 👋
+		</h2>
+		<h3 class="px-7 mt-3 mb-7 text-gray-700  xl:text-lg">Here's what happened since you left</h3>
 
-		<!-- Some space -->
-		<SizedBox height="h-8" />
+		<!-- The separator line -->
+		<div class="bg-gray-300 w-full h-0.5" />
 
 		<!-- Finally show the actual contents here. -->
-		<slot />
+		<div class="px-7 pb-32 mt-7">
+			<slot />
+		</div>
 	</div>
 </AppShell>

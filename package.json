@@ -43,6 +43,7 @@
   "type": "module",
   "dependencies": {
     "@floating-ui/dom": "1.6.3",
+    "@polygon.io/client-js": "^7.3.2",
     "@sveltejs/adapter-static": "^3.0.1",
     "firebase": "^10.11.1",
     "firebase-admin": "^12.1.0"
