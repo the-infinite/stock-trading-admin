@@ -13,10 +13,10 @@
 	}
 </script>
 
-<div class="flex flex-row justify-between lg:gap-0 gap-1">
-	<h2 class="text-black lg:text-3xl">What would you like to order today?</h2>
+<div class="flex flex-col md:w-full lg:flex-row justify-between lg:gap-0 gap-1">
+	<h2 class="text-black lg:text-3xl lg:text-start text-center">What would you like to order today?</h2>
 
-	<div class="flex flex-col md:flex-row lg:gap-0 gap-4 lg:items-start items-end">
+	<div class="flex mt-5 lg:mt-0 flex-row lg:gap-0 gap-4 lg:items-start items-end">
 		<select class="w-fit text-black rounded-md text-sm lg:mr-5" bind:value={asset}>
 			{#each wallets as wallet}
 				<option value={wallet.asset}>{wallet.name}</option>
