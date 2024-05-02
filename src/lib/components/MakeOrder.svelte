@@ -6,7 +6,7 @@
 
 	// Make this one.
 	function makeOrder() {
-		window.location.assign(`/u/pay/new?asset=${asset}`);
+		window.location.assign(`/u/pay?asset=${asset}`);
 	}
 </script>
 

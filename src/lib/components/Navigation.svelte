@@ -35,13 +35,9 @@
 		drawerStore.close();
 	}
 
-	function addAccount() {
+	function addAccount() {}
 
-	}
-
-	function switchAccount(newUser: UserModel, index: number) {
-
-	}
+	function switchAccount(newUser: UserModel, index: number) {}
 </script>
 
 <nav class="list-nav p-4 bg-primary-700 h-full">
@@ -54,17 +50,18 @@
 			width="w-32"
 		/>
 
-		<UserSelection 
+		<UserSelection
 			users={$usersStore ?? []}
 			activeUser={user}
 			onAddAccount={addAccount}
-			onSelectUser={switchAccount}/>
+			onSelectUser={switchAccount}
+		/>
 	</div>
 	<ul>
 		<li>
 			<DrawerButton
 				name="Dashboard"
-				link="/u"
+				link={`/u?id=${user?.uid}`}
 				image="/icon{selectedItemIndex === 0 ? '/dark' : ''}/menu.svg"
 				onClick={() => drawerClose(0)}
 				isActive={selectedItemIndex === 0}
@@ -73,7 +70,7 @@
 		<li>
 			<DrawerButton
 				name="Transaction Books"
-				link="/u/pay"
+				link={`/u/pay?id=${user?.uid}`}
 				image="/icon{selectedItemIndex === 1 ? '/dark' : ''}/report.svg"
 				onClick={() => drawerClose(1)}
 				isActive={selectedItemIndex === 1}
@@ -82,7 +79,7 @@
 		<li>
 			<DrawerButton
 				name="Customers"
-				link="/u/customers"
+				link={`/u/customers?id=${user?.uid}`}
 				image="/icon{selectedItemIndex === 2 ? '/dark' : ''}/customer.svg"
 				onClick={() => drawerClose(2)}
 				isActive={selectedItemIndex === 2}
@@ -91,7 +88,7 @@
 		<li>
 			<DrawerButton
 				name="Employees"
-				link="/u/employees"
+				link="/u/employees?id={user?.uid}"
 				image="/icon{selectedItemIndex === 3 ? '/dark' : ''}/employee.svg"
 				onClick={() => drawerClose(3)}
 				isActive={selectedItemIndex === 3}
@@ -102,7 +99,7 @@
 		<li>
 			<DrawerButton
 				name="Settings"
-				link="/u/settings"
+				link="/u/settings?id={user?.uid}"
 				image="/icon{selectedItemIndex === 4 ? '/dark' : ''}/settings.svg"
 				onClick={() => drawerClose(4)}
 				isActive={selectedItemIndex === 4}
@@ -111,7 +108,7 @@
 		<li>
 			<DrawerButton
 				name="Log out"
-				link="/u/logout"
+				link="/u/logout?id={user?.uid}"
 				image="/icon{selectedItemIndex === 5 ? '/dark' : ''}/logout.svg"
 				onClick={() => drawerClose(5)}
 				isActive={selectedItemIndex === 5}

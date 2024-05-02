@@ -62,7 +62,7 @@
 				});
 
 				// Now route to the user.
-				window.location.assign('/u');
+				window.location.assign(`/u/?id=${user.uid}`);
 			}
 
 			//? If this failed.

@@ -96,7 +96,7 @@
 				profileImage: undefined,
 				wallets: [],
 				userType: position,
-				dateJoined: Date.now(),
+				dateJoined: Date.now()
 			} as UserModel);
 
 			// We are no longer logging in.
@@ -120,7 +120,7 @@
 				});
 
 				// Now route to the user.
-				window.location.assign('/u/');
+				window.location.assign(`/u/?id=${user.uid}`);
 			}
 
 			//? If this failed.

@@ -7,4 +7,5 @@ export type WalletModel = {
   quantity: number;
   price: number;
   boughtAt: number;
+  owner: string;
 };

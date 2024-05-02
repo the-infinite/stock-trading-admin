@@ -1,15 +1,22 @@
 <script lang="ts">
 	import AmountCard from '$lib/components/AmountCard.svelte';
 	import MakeOrder from '$lib/components/MakeOrder.svelte';
+	import { selectedUser, usersStore } from '$lib/session';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
-	function onViewBalance() {}
+	const users = $usersStore;
+	const activeUser = $selectedUser;
+	const user = users![activeUser];
 
-	function onViewTotalSales() {}
+	function onViewTotalSales() {
+		window.location.assign('/u/pay/sales_report?id=' + user.uid);
+	}
 
-	function onViewTotalPurchases() {}
+	function onViewTotalPurchases() {
+		window.location.assign('/u/pay/buy_report?id=' + user.uid);
+	}
 
 	function buyAsset(asset: string) {}
 
@@ -23,7 +30,7 @@
 	<!-- Second, we have the list of balances -->
 	<div class="flex lg:flex-row flex-col gap-5 mt-7 mb-7 w-full justify-between">
 		<!-- Balance -->
-		<AmountCard amount={data.balance} title="Balance" viewAction={onViewBalance} />
+		<AmountCard amount={data.balance} title="Balance" />
 
 		<!-- Total sales -->
 		<AmountCard
