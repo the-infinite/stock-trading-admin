@@ -47,21 +47,21 @@
 	<div class="md:w-full w-screen">
 		<table class="text-gray-500 w-full mt-6 text-sm overflow-x-scroll">
 			<tr class="bg-gray-200 text-start">
-				<th class="pl-4 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} "
-					>Item</th
-				>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} "
-					>Quantity</th
-				>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} "
-					>Price</th
-				>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} "
-					>Total Value</th
-				>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} "
-					>Actions</th
-				>
+				<th class="pl-4 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
+					Item
+				</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
+					Quantity
+				</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
+					Price
+				</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
+					Total Value
+				</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
+					Actions
+				</th>
 			</tr>
 			{#if data.assets.length < 1}
 				<p class="w-full text-center text-black p-4">Nothing to show yet</p>
@@ -79,12 +79,20 @@
 
 							<!-- For the price of this asset... -->
 							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-start">
-								{asset.price}
+								{asset.price === asset.boughtAt
+									? '±'
+									: asset.price > asset.boughtAt
+										? '+'
+										: '-'}₦{asset.price.toFixed(2)}
 							</td>
 
 							<!-- For the value of this asset... -->
 							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-start">
-								{asset.price * asset.quantity}
+								{asset.price === asset.boughtAt
+									? '±'
+									: asset.price > asset.boughtAt
+										? '+'
+										: '-'}₦{(asset.price * asset.quantity).toFixed(2)}
 							</td>
 
 							<!-- For the button -->
