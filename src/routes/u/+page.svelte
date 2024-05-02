@@ -47,21 +47,11 @@
 	<div class="md:w-full w-screen">
 		<table class="text-gray-500 w-full mt-6 text-sm overflow-x-scroll">
 			<tr class="bg-gray-200 text-start">
-				<th class="pl-4 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
-					Item
-				</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
-					Quantity
-				</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
-					Price
-				</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
-					Total Value
-				</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-start {data.assets.length > 0 ? 'w-full' : 'w-fit'} ">
-					Actions
-				</th>
+				<th class="pl-4 pr-1 pt-3 pb-3 text-center">Item</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Quantity</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Price</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Total Value</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
 			</tr>
 			{#if data.assets.length < 1}
 				<p class="w-full text-center text-black p-4">Nothing to show yet</p>
@@ -70,15 +60,15 @@
 					{#each data.assets as asset}
 						<tr>
 							<!-- For the asset ID. -->
-							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-start">
+							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-center">
 								{asset.asset}
 							</td>
 
 							<!-- For the asset quantitiy. -->
-							<td class="pl-1 pr-1 pt-3 pb-3 text-black text-xs text-start">{asset.quantity}</td>
+							<td class="pl-1 pr-1 pt-3 pb-3 text-black text-xs text-center">{asset.quantity}</td>
 
 							<!-- For the price of this asset... -->
-							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-start">
+							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-center">
 								{asset.price === asset.boughtAt
 									? '±'
 									: asset.price > asset.boughtAt
@@ -87,17 +77,15 @@
 							</td>
 
 							<!-- For the value of this asset... -->
-							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-start">
-								{asset.price === asset.boughtAt
-									? '±'
-									: asset.price > asset.boughtAt
-										? '+'
-										: '-'}₦{(asset.price * asset.quantity).toFixed(2)}
+							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-center">
+								{asset.price === asset.boughtAt ? '±' : asset.price > asset.boughtAt ? '+' : '-'}₦{(
+									asset.price * asset.quantity
+								).toFixed(2)}
 							</td>
 
 							<!-- For the button -->
-							<td class="pl-1 pr-1 pt-3 pb-3 text-black text-xs text-start w-fit">
-								<div class="flex flex-row gap-3">
+							<td class="pl-1 pr-1 pt-3 pb-3 text-black text-xs text-center w-fit">
+								<div class="flex flex-row gap-3 w-full justify-center">
 									<button
 										class="text-black border rounded-md pl-4 pr-4 pt-2 pb-2"
 										on:click={() => buyAsset(asset.asset)}
