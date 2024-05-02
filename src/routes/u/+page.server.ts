@@ -34,19 +34,19 @@ export const load = (async (event) => {
         }
     });
 
-    // Now, let us iterate on each asset.
-    // for (const asset of assets) {
-    //     const response = await event.fetch(`https://api.twelvedata.com/price?symbol=${asset.asset}&apikey=${TWELVE_DATA_API_KEY}`);
+    //Now, let us iterate on each asset.
+    for (const asset of assets) {
+        const response = await event.fetch(`https://api.twelvedata.com/price?symbol=${asset.asset}&apikey=${TWELVE_DATA_API_KEY}`);
 
-    //     // If this is fine...
-    //     if (response.ok) {
-    //         const data: { price: string } = await response.json();
-    //         asset.price = toNaira(parseFloat(data.price));
+        // If this is fine...
+        if (response.ok) {
+            const data: { price: string } = await response.json();
+            asset.price = toNaira(parseFloat(data.price));
 
-    //         // Ideally, here, we should also update the value of the price for this wallet.
-    //         await walletsCollection.doc(asset.id).update("price", asset.price);
-    //     }
-    // }
+            // Ideally, here, we should also update the value of the price for this wallet.
+            await walletsCollection.doc(asset.id).update("price", asset.price);
+        }
+    }
 
     // Return the aggregated balances
     return {
