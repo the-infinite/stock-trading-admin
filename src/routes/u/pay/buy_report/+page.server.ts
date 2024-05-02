@@ -25,7 +25,7 @@ export const load = (async (event) => {
 
         // Increase the necessary data using these numbers.
         units += transaction.quantity;
-        amount += transaction.price;
+        amount += transaction.price * transaction.quantity;
 
         // Push this transaction.
         transactions.push(transaction);

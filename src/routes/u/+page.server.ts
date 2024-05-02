@@ -12,7 +12,6 @@ export const load = (async (event) => {
     var assets: WalletModel[] = [];
 
     // This is the transaction database.
-    // This is the transaction database.
     (await walletsCollection.orderBy("asset").get()).forEach(function (result) {
         const wallet = result.data() as WalletModel;
         balance += wallet.price * wallet.quantity;
