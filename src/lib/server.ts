@@ -3,7 +3,6 @@
 import admin from "firebase-admin";
 import serviceAccount from "$lib/key.json";
 import { Constants } from "./constants";
-import { EmailAuthProvider } from "firebase/auth";
 
 try {
   // Initialze the admin app
@@ -45,3 +44,8 @@ export const walletsCollection = database.collection(Constants.walletReference);
  * The collection of all schedules in our database.
  */
 export const transactionsCollection = database.collection(Constants.transactionReference);
+
+
+export function toNaira(amount: number): number {
+  return 1369.32 * amount;
+}

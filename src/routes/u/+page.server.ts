@@ -1,5 +1,5 @@
 import { TWELVE_DATA_API_KEY } from '$env/static/private';
-import { transactionsCollection, walletsCollection } from '$lib/server';
+import { toNaira, transactionsCollection, walletsCollection } from '$lib/server';
 import type { TransactionModel } from '$lib/types/transaction';
 import type { WalletModel } from '$lib/types/wallet';
 import type { PageServerLoad } from './$types';
@@ -15,7 +15,7 @@ export const load = (async (event) => {
     var assets: WalletModel[] = [];
 
     // This is the transaction database.
-    (await walletsCollection.where("owner", "==", owner).get()).forEach(function (wallet) {
+    (await walletsCollection.orderBy("asset").get()).forEach(function (wallet) {
         assets.push(wallet.data() as WalletModel);
     });
 
@@ -25,25 +25,28 @@ export const load = (async (event) => {
 
         // If this is a purchase
         if (transaction.type === "buy") {
-            purchases += transaction.quantity * transaction.price;
+            purchases += toNaira(transaction.quantity * transaction.price);
         }
 
         // If this is a sell...
         else {
-            sales += transaction.quantity * transaction.price;
+            sales += toNaira(transaction.quantity * transaction.price);
         }
     });
 
     // Now, let us iterate on each asset.
-    for (const asset of assets) {
-        const response = await event.fetch(`https://api.twelvedata.com/price?symbol=${asset.asset}&apikey=${TWELVE_DATA_API_KEY}`);
+    // for (const asset of assets) {
+    //     const response = await event.fetch(`https://api.twelvedata.com/price?symbol=${asset.asset}&apikey=${TWELVE_DATA_API_KEY}`);
 
-        // If this is fine...
-        if (response.ok) {
-            const data: { price: string } = await response.json();
-            asset.price = parseFloat(data.price);
-        }
-    }
+    //     // If this is fine...
+    //     if (response.ok) {
+    //         const data: { price: string } = await response.json();
+    //         asset.price = toNaira(parseFloat(data.price));
+
+    //         // Ideally, here, we should also update the value of the price for this wallet.
+    //         await walletsCollection.doc(asset.id).update("price", asset.price);
+    //     }
+    // }
 
     // Return the aggregated balances
     return {

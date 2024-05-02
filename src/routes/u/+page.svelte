@@ -6,15 +6,17 @@
 
 	export let data: PageData;
 
-	const users = $usersStore;
-	const activeUser = $selectedUser;
-	const user = users![activeUser];
-
 	function onViewTotalSales() {
+		const users = $usersStore;
+		const activeUser = $selectedUser;
+		const user = users![activeUser];
 		window.location.assign('/u/pay/sales_report?id=' + user.uid);
 	}
 
 	function onViewTotalPurchases() {
+		const users = $usersStore;
+		const activeUser = $selectedUser;
+		const user = users![activeUser];
 		window.location.assign('/u/pay/buy_report?id=' + user.uid);
 	}
 
@@ -25,7 +27,8 @@
 
 <div class="flex flex-col">
 	<!-- First, we have the widget for makring orders... -->
-	<MakeOrder />
+	<MakeOrder 
+		wallets={data.assets}/>
 
 	<!-- Second, we have the list of balances -->
 	<div class="flex lg:flex-row flex-col gap-5 mt-7 mb-7 w-full justify-between">
@@ -57,7 +60,7 @@
 				{#if data.assets.length < 1}
 					<th class="pl-4 pr-1 pt-3 pb-3 text-center">No results</th>
 				{:else}
-					<th class="pl-4 pr-1 pt-3 pb-3 text-center">Item</th>
+					<th class="pl-4 pr-1 pt-3 pb-3 text-center">Name</th>
 					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Quantity</th>
 					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Price</th>
 					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Total Value</th>
@@ -70,28 +73,50 @@
 				<tbody>
 					{#each data.assets as asset}
 						<tr>
-							<!-- For the asset ID. -->
+							<!-- For the asset name. -->
 							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-center">
-								{asset.asset}
+								{asset.name}
 							</td>
 
 							<!-- For the asset quantitiy. -->
 							<td class="pl-1 pr-1 pt-3 pb-3 text-black text-xs text-center">{asset.quantity}</td>
 
 							<!-- For the price of this asset... -->
-							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-center">
-								{asset.price === asset.boughtAt
-									? '±'
+							<td
+								class="pl-4 pr-1 pt-3 pb-3 {asset.price === asset.boughtAt
+									? 'text-black'
 									: asset.price > asset.boughtAt
-										? '+'
-										: '-'}₦{asset.price.toFixed(2)}
+										? 'text-success-700'
+										: 'text-error-700'} text-xs text-center"
+							>
+								<div class="w-full flex flex-col items-center">
+									<p class="bg-gray-100 rounded-full w-fit py-1 px-2">
+										{asset.price === asset.boughtAt
+											? '±'
+											: asset.price > asset.boughtAt
+												? '+'
+												: '-'}₦{asset.price.toFixed(2)}
+									</p>
+								</div>
 							</td>
 
 							<!-- For the value of this asset... -->
-							<td class="pl-4 pr-1 pt-3 pb-3 text-black text-xs text-center">
-								{asset.price === asset.boughtAt ? '±' : asset.price > asset.boughtAt ? '+' : '-'}₦{(
-									asset.price * asset.quantity
-								).toFixed(2)}
+							<td
+								class="pl-4 pr-1 pt-3 pb-3 {asset.price === asset.boughtAt
+									? 'text-black'
+									: asset.price > asset.boughtAt
+										? 'text-success-700'
+										: 'text-error-700'} text-xs text-center items-center"
+							>
+								<div class="w-full flex flex-col items-center">
+									<p class="bg-gray-100 rounded-full w-fit py-1 px-2">
+										{asset.price === asset.boughtAt
+											? '±'
+											: asset.price > asset.boughtAt
+												? '+'
+												: '-'}₦{(asset.price * asset.quantity).toFixed(2)}
+									</p>
+								</div>
 							</td>
 
 							<!-- For the button -->

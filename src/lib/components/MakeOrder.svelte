@@ -1,8 +1,11 @@
 <script lang="ts">
+	import type { WalletModel } from '$lib/types/wallet';
+
 	/**
 	 * The asset that the user wants to purchase.
 	 */
 	let asset: string = 'AAPL';
+	export let wallets: WalletModel[] = [];
 
 	// Make this one.
 	function makeOrder() {
@@ -15,9 +18,9 @@
 
 	<div class="flex flex-col md:flex-row lg:gap-0 gap-4 lg:items-start items-end">
 		<select class="w-fit text-black rounded-md text-sm lg:mr-5" bind:value={asset}>
-			<option value="AAPL">Apple Inc</option>
-			<option value="AMD">AMD Technologies</option>
-			<option value="INTL">Intel Corp</option>
+			{#each wallets as wallet}
+				<option value={wallet.asset}>{wallet.name}</option>
+			{/each}
 		</select>
 
 		<button class="rounded-lg bg-primary-700 text-sm" on:click={makeOrder}>
