@@ -35,9 +35,14 @@
 		drawerStore.close();
 	}
 
-	function addAccount() {}
+	function addAccount() {
+		window.location.assign('/auth/login/');
+	}
 
-	function switchAccount(newUser: UserModel, index: number) {}
+	function switchAccount(newUser: UserModel, index: number) {
+		selectedUser.update(() => index);
+		window.location.reload();
+	}
 </script>
 
 <nav class="list-nav p-4 bg-primary-700 h-full">

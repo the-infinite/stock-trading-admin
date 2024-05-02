@@ -20,15 +20,18 @@
 		window.location.assign('/u/pay/buy_report?id=' + user.uid);
 	}
 
-	function buyAsset(asset: string) {}
+	function buyAsset(asset: string) {
+		window.location.assign('/u/pay?action=buy&asset=' + asset);
+	}
 
-	function sellAsset(asset: string) {}
+	function sellAsset(asset: string) {
+		window.location.assign('/u/pay?action=sell&asset=' + asset);
+	}
 </script>
 
 <div class="flex flex-col">
 	<!-- First, we have the widget for makring orders... -->
-	<MakeOrder 
-		wallets={data.assets}/>
+	<MakeOrder wallets={data.assets} />
 
 	<!-- Second, we have the list of balances -->
 	<div class="flex lg:flex-row flex-col gap-5 mt-7 mb-7 w-full justify-between">

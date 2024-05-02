@@ -9,14 +9,16 @@
 
 	function deleteUser(user: string) {}
 
-	function createUser() {}
+	function createUser() {
+		window.location.assign('/u/customers/new/');
+	}
 </script>
 
 <h2 class="text-black text-lg xl:text-3xl mb-4">All Customer</h2>
 <button class="rounded-lg bg-primary-700 text-sm mb-14" on:click={createUser}>
 	<div class="flex flex-row gap-2 pl-4 pr-4 pt-2 pb-2 items-center">
 		<i class="fas fa-plus"></i>
-		<p class="text-white">Create Customers</p>
+		<p class="text-white">Create Customer</p>
 	</div>
 </button>
 <h2 class="text-black text-lg xl:text-xl mb-4">Current Customer</h2>

@@ -9,7 +9,9 @@
 
 	function deleteUser(user: string) {}
 
-	function createUser() {}
+	function createUser() {
+		window.location.assign('/auth/register/');
+	}
 </script>
 
 <h2 class="text-black text-lg xl:text-3xl mb-4">All Employees</h2>
