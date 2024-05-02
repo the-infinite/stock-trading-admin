@@ -22,12 +22,12 @@ export const load = (async (event) => {
 
         // If this is a purchase
         if (transaction.type === "buy") {
-            purchases += toNaira(transaction.quantity * transaction.price);
+            purchases += transaction.quantity * transaction.price;
         }
 
         // If this is a sell...
         else {
-            sales += toNaira(transaction.quantity * transaction.price);
+            sales += transaction.quantity * transaction.price;
         }
     });
 
