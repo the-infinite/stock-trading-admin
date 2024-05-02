@@ -1,17 +1,20 @@
-import { transactionsCollection } from '$lib/server';
+import { transactionsCollection, walletsCollection } from '$lib/server';
 import type { TransactionModel } from '$lib/types/transaction';
-import { Filter } from 'firebase-admin/firestore';
 import type { PageServerLoad } from './$types';
+import type { WalletModel } from '$lib/types/wallet';
 
 export const load = (async (event) => {
-    // For the person making the request.
-    const owner = event.url.searchParams.get("id");
-
     // For the results
     var balance: number = 0;
     var units: number = 0;
     var amount: number = 0;
     var transactions: TransactionModel[] = [];
+    var assets: WalletModel[] = [];
+
+    // This is the transaction database.
+    (await walletsCollection.orderBy("asset").get()).forEach(function (wallet) {
+        assets.push(wallet.data() as WalletModel);
+    });
 
     // Do something to each transaction in the database.
     (await transactionsCollection.where("type", "==", "sell").get()).forEach(function (value) {
@@ -33,5 +36,6 @@ export const load = (async (event) => {
         units,
         amount,
         transactions,
+        assets,
     };
 }) satisfies PageServerLoad;

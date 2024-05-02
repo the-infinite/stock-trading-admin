@@ -5,9 +5,6 @@ import type { WalletModel } from '$lib/types/wallet';
 import type { PageServerLoad } from './$types';
 
 export const load = (async (event) => {
-    // For the user making the request.
-    const owner = event.url.searchParams.get("id");
-
     // Now for the results...
     var balance: number = 0;
     var sales: number = 0;
