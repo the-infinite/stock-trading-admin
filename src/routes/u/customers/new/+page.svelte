@@ -1,10 +1,13 @@
 <script lang="ts">
-	import { UserType, type UserModel } from '$lib/types/user';
-	import { ProgressRadial, getToastStore } from '@skeletonlabs/skeleton';
+	import { UserType, getUserType, type UserModel } from '$lib/types/user';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	import type { PageData } from './$types';
 
-	var fullname: string | null;
-	var email: string | null;
-	var phone: string | null;
+	export let data: PageData;
+	const user = data.user;
+	var fullname: string | null = user ? `${user.firstname} ${user.lastname}` : null;
+	var email: string | null = user ? user.email : null;
+	var phone: string | null = user ? user.phone : null;
 
 	var loading = false;
 
@@ -62,8 +65,8 @@
 			} as UserModel;
 
 			// Now it is time to post this to the database.
-			const response = await fetch('/api/customer', {
-				method: 'POST',
+			const response = await fetch(user ? '/api/customer?id=' + user?.uid : '/api/customer', {
+				method: user ? 'PUT' : 'POST',
 				body: JSON.stringify(customer)
 			});
 
@@ -73,6 +76,9 @@
 					message: await response.text(),
 					background: 'variant-filled-success'
 				});
+
+				// Move backward.
+				window.history.back();
 			}
 
 			//? This failed so show failure.
@@ -91,7 +97,13 @@
 	class="bg-white w-full min-h-80 rounded-xl h-fit pt-10 pb-10 md:pl-16 md:pr-16 pr-10 pl-10 flex flex-col gap-3 text-black"
 >
 	<div class="text-black flex flex-col mb-5">
-		<h2 class="text-black text-xl font-semibold">Create a Customer</h2>
+		<h2 class="text-black text-xl font-semibold">
+			{#if user}
+				Edit a User
+			{:else}
+				Create a Customer
+			{/if}
+		</h2>
 		<h3 class="text-sm">Required fields have a *</h3>
 	</div>
 
@@ -100,7 +112,7 @@
 		class="border-2 rounded-lg w-full placeholder-black/45 border-primary-500/80"
 		type="text"
 		bind:value={fullname}
-		placeholder="Customer full name*"
+		placeholder="{user ? 'User' : 'Customer'} full name*"
 	/>
 
 	<!-- For the email address -->
@@ -108,7 +120,7 @@
 		class="border-2 rounded-lg w-full placeholder-black/45 border-primary-500/80"
 		type="text"
 		bind:value={email}
-		placeholder="Customer email address*"
+		placeholder="{user ? 'User' : 'Customer'} email address*"
 	/>
 
 	<!-- For the phone number -->
@@ -116,13 +128,19 @@
 		class="border-2 rounded-lg w-full placeholder-black/45 border-primary-500/80"
 		type="text"
 		bind:value={phone}
-		placeholder="Customer phone number*"
+		placeholder="{user ? 'User' : 'Customer'} phone number*"
 	/>
 
 	<button class="rounded-lg bg-primary-700 mb-14 w-fit" on:click={createNew}>
 		<div class="flex flex-row gap-2 px-8 py-3 items-center">
 			<i class="fas fa-plus text-white"></i>
-			<p class="text-white">Create Customer</p>
+			<p class="text-white">
+				{#if user}
+					Edit User
+				{:else}
+					Create Customer
+				{/if}
+			</p>
 		</div>
 	</button>
 </form>

@@ -1,13 +1,46 @@
 <script lang="ts">
 	import { getDate } from '$lib';
 	import { type UserModel } from '$lib/types/user';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 
-	function editUser(user: UserModel) {}
+	// Do this one.
+	const toastStore = getToastStore();
 
-	function deleteUser(user: string) {}
+	// Helper function used to edit a user's information.
+	function editUser(user: UserModel) {
+		window.location.assign('/u/customers/new?id=' + user.uid);
+	}
+
+	// Helper function used to delete a user from the database.
+	async function deleteUser(user: string) {
+		const response = await fetch('/api/customer?id=' + user, {
+			method: 'DELETE'
+		});
+
+		//? First, if the schedule was created successfully...
+		if (response.ok) {
+			toastStore.trigger({
+				message: await response.text(),
+				background: 'variant-filled-success'
+			});
+
+			// After this goes well, reload the page after 2 seconds.
+			setTimeout(function () {
+				window.location.reload();
+			}, 2000);
+		}
+
+		//? This failed so show failure.
+		else {
+			toastStore.trigger({
+				message: await response.text(),
+				background: 'variant-filled-error'
+			});
+		}
+	}
 
 	function createUser() {
 		window.location.assign('/u/customers/new/');
