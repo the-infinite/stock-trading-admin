@@ -23,12 +23,16 @@
 <div class="md:w-full w-screen">
 	<table class="text-gray-500 w-full mt-6 text-sm overflow-x-scroll">
 		<tr class="bg-gray-200 text-start">
-			<th class="pl-4 pr-1 pt-3 pb-3 text-center">Date joined</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Name</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Email Address</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Phone Number</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Role</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
+			{#if data.users.length < 1}
+				<th class="pl-4 pr-1 pt-3 pb-3 text-center">No results</th>
+			{:else}
+				<th class="pl-4 pr-1 pt-3 pb-3 text-center">Date joined</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Name</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Email Address</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Phone Number</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Role</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
+			{/if}
 		</tr>
 		{#if data.users.length < 1}
 			<p class="w-full text-center text-black p-4">Nothing to show yet</p>

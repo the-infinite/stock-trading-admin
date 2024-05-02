@@ -16,18 +16,22 @@
 <button class="rounded-lg bg-primary-700 text-sm mb-14" on:click={createUser}>
 	<div class="flex flex-row gap-2 pl-4 pr-4 pt-2 pb-2 items-center">
 		<i class="fas fa-plus"></i>
-		<p class="text-white">Create Customer</p>
+		<p class="text-white">Create Customers</p>
 	</div>
 </button>
 <h2 class="text-black text-lg xl:text-xl mb-4">Current Customer</h2>
 <div class="md:w-full w-screen">
 	<table class="text-gray-500 w-full mt-6 text-sm overflow-x-scroll">
 		<tr class="bg-gray-200 text-start">
-			<th class="pl-4 pr-1 pt-3 pb-3 text-center">Date joined</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Name</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Email Address</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Phone Number</th>
-			<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
+			{#if data.users.length < 1}
+				<th class="pl-4 pr-1 pt-3 pb-3 text-center">No results</th>
+			{:else}
+				<th class="pl-4 pr-1 pt-3 pb-3 text-center">Date joined</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Name</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Email Address</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Phone Number</th>
+				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
+			{/if}
 		</tr>
 		{#if data.users.length < 1}
 			<p class="w-full text-center text-black p-4">Nothing to show yet</p>

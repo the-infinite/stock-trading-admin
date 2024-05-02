@@ -54,11 +54,15 @@
 	<div class="md:w-full w-screen">
 		<table class="text-gray-500 w-full mt-6 text-sm overflow-x-scroll">
 			<tr class="bg-gray-200 text-start">
-				<th class="pl-4 pr-1 pt-3 pb-3 text-center">Item</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Quantity</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Price</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Total Value</th>
-				<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
+				{#if data.assets.length < 1}
+					<th class="pl-4 pr-1 pt-3 pb-3 text-center">No results</th>
+				{:else}
+					<th class="pl-4 pr-1 pt-3 pb-3 text-center">Item</th>
+					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Quantity</th>
+					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Price</th>
+					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Total Value</th>
+					<th class="pl-1 pr-1 pt-3 pb-3 text-center">Actions</th>
+				{/if}
 			</tr>
 			{#if data.assets.length < 1}
 				<p class="w-full text-center text-black p-4">Nothing to show yet</p>
