@@ -34,13 +34,13 @@ export const load = (async (event) => {
         }
     });
 
-    //Now, let us iterate on each asset.
+    // Now, let us iterate on each asset.
     for (const asset of assets) {
         const response = await event.fetch(`https://api.twelvedata.com/price?symbol=${asset.asset}&apikey=${TWELVE_DATA_API_KEY}`);
+        const data: { price: string } = await response.json();
 
         // If this is fine...
-        if (response.ok) {
-            const data: { price: string } = await response.json();
+        if (response.ok && data.price) {
             asset.price = toNaira(parseFloat(data.price));
 
             // Ideally, here, we should also update the value of the price for this wallet.
