@@ -5,6 +5,11 @@ export type TransactionModel = {
   owner: string;
 
   /**
+   * The UID of this transaction itself.
+   */
+  id: string;
+
+  /**
    * A string constant that represents the type of this transaction.
    */
   type: string & ("buy" | "sell");
@@ -28,6 +33,21 @@ export type TransactionModel = {
    * The asset that was involved in this transaction.
    */
   asset: string;
+
+  /**
+   * The name of the asset that was involved in this transaction.
+   */
+  assetName: string;
+
+  /**
+   * The time when this transaction was made.
+   */
+  timestamp: number;
+
+  /**
+   * The profit or loss on this transaction.
+   */
+  margin: number;
 
   /**
    * The status of this transaction.
